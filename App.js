@@ -1,20 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { WebView } from 'react-native-webview';
+import { StyleSheet } from 'react-native';
+
 
 export default function App() {
+    const runFirst = `
+      window.isNativeApp = true;
+      true; // note: this is required, or you'll sometimes get silent failures
+    `;
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <>
+        <WebView
+            style={styles.container}
+            source={{ uri: 'https://olay.az/' }}
+            injectedJavaScriptBeforeContentLoaded={runFirst}
+        />
+        <StatusBar style="auto" />
+      </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        marginTop: 25,
+    }
 });
